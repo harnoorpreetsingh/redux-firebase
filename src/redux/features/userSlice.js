@@ -20,12 +20,12 @@ export const createUser = createAsyncThunk("users/createUserWithEmail",
 )
 
 export const signUpWithGoogle=createAsyncThunk("users/signUpWithGoogle",
-    async(_,thunkApi)=>{
+    async(data,thunkApi)=>{
         const Provider = new GoogleAuthProvider
         try {
             const res = await signInWithPopup(auth, Provider) 
             if(res){
-            console.log("Signed up Succesfully with Google!")
+            console.log(res, "Signed up Succesfully with Google!")
            }
         } catch (error) {
             console.error(error,"error in signing up from Google")
