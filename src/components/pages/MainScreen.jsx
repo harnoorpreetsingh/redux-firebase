@@ -30,11 +30,12 @@ const MainScreen = () => {
     setOpenEmoji(false);
   };
 
-  const endRef = useRef(null);
+  const endRef = useRef();
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+ endRef.current?.scrollIntoView({ behavior: "smooth" });
+    
+}, [Text]);
 
   return (
     <div
@@ -463,10 +464,12 @@ const MainScreen = () => {
                       </p>
                     </div>
                   </div>
-                </div>
-              </div>
                 <div ref={endRef}></div>
+                </div>
 
+                {/* end of middle */}
+              </div>
+                            {/* end of chats */}
               <div className="lower mt-[-6px]   w-[100%] ">
                 <div className="content flex  mx-4 justify-between relative">
                   <img
