@@ -13,6 +13,9 @@ import img from "../../assets/icons/img.png";
 import camera from "../../assets/icons/camera.png";
 import mic from "../../assets/icons/mic.png";
 import emoji from "../../assets/icons/emoji.png";
+import ad from "../../assets/icons/arrowDown.png";
+import au from "../../assets/icons/arrowUp.png";
+import dwnld from "../../assets/icons/download.png";
 import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 
@@ -27,7 +30,7 @@ const MainScreen = () => {
   const handleEmoji = (e) => {
     console.log(e, "emojizzzz");
     setText((prev) => prev + e.emoji);
-    setOpenEmoji(false);
+    // setOpenEmoji(false);
   };
 
   const endRef = useRef();
@@ -297,7 +300,7 @@ const MainScreen = () => {
                   <div className="img ">
                     <img
                       src={dp}
-                      className="w-[48px] rounded-3xl  cursor-pointer hover:bg-[rgba(191,196,213,0.5)]shadow-sm shadow-white"
+                      className="w-[48px] rounded-3xl  cursor-pointer hover:bg-[rgba(191,196,213,0.5)] shadow-sm shadow-white"
                       alt=""
                     />
                   </div>
@@ -514,9 +517,86 @@ const MainScreen = () => {
               </div>
             </div>
 
-            {/* Profile Section */}
-            <div className="profile w-[80%] border-l-2 border-l-[rgba(191,196,213,0.5)] ">
-              <div>Profile</div>
+            {/************************************  Profile Section     *****************************/}
+            <div className="profile w-[80%] border-l-2 border-l-[rgba(163,169,186,0.5)] ">
+              <div>
+                <div className="top flex flex-col items-center text-center hover:bg-slate-900 bg-[rgba(191,196,213,0.5)] mx-2 rounded-lg text-white justify-center pb-2">
+                    <img src={dp} className=" rounded-[200px] mt-2 w-[80px] shadow-lg shadow-white " alt="" />
+                    <h1 className="text-xl mt-2 text-white">User 1</h1>
+                    <p className="mt-1 text-lg mx-4" >
+                      Hey there, Harnoor's makin chat app for Only Farms!! (Read
+                      that Again!)
+                    </p>
+                </div>
+              </div>
+                                {/* ******accordians****** */}
+              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+                <div className="accordian text-xl flex items-center justify-between ">
+                    <h1 className="text-lg" >Chat Settings</h1>
+                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                </div>
+              </div>
+
+              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+                <div className="accordian text-xl flex items-center justify-between ">
+                    <h1  className="text-lg">Privacy & Help</h1>
+                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                </div>
+              </div>
+
+              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+                <div className="accordian text-xl flex items-center justify-between ">
+                    <h1 className="text-lg"  >Privacy & Help</h1>
+                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                </div>
+              </div>
+
+                            {/* shared photos */}
+              <div className="bottom mt-2 cursor-pointer bg-[rgba(191,196,213,0.5)] p-2 rounded-lg text-white mx-2">
+                <div className="accordian text-xl flex items-center justify-between ">
+                    <h1 className="text-lg" >Shared Photos</h1>
+                    <img src={au} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                </div>
+
+                <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
+                  <div className="flex gap-4">
+                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
+                  <h1>photo_2024_2</h1>
+                  </div>
+                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                </div>
+
+                <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
+                  <div className="flex gap-4">
+                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
+                  <h1>photo_2024_2</h1>
+                  </div>
+                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                </div>
+
+
+
+                <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
+                  <div className="flex gap-4">
+                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
+                  <h1>photo_2024_2</h1>
+                  </div>
+                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                </div>
+
+
+              </div>
+
+              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+                <div className="accordian text-xl flex items-center justify-between ">
+                    <h1  className="text-lg">Shared Files</h1>
+                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                </div>
+              </div>
+
+              <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-2 text-white p-2 rounded-lg mx-2" >Block User</button>
+              <button className="w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2" >Logout</button>
+                        
             </div>
           </div>
         </div>
