@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword, GoogleAuthProvider,  signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import {auth} from "../../firebase/config"
+import { toast } from 'sonner';
+
 
 
 export const createUser = createAsyncThunk("users/createUserWithEmail",
@@ -11,9 +13,14 @@ export const createUser = createAsyncThunk("users/createUserWithEmail",
            console.log(res, "rererererere")
            if(res){
             console.log(res,"User created successfully")
+            toast.success("User created Successfully!!")
            }
         } catch (error) {
-            console.error(error)
+            // console.error(error)
+            console.log(error.message)
+            if(error?.message == "Firebase: Error (auth/email-already-in-use)."){
+                    toast.error("Email Already Exists!")
+            }
             throw thunkApi.rejectWithValue(error.res?.data)
         }
     }
@@ -26,9 +33,12 @@ export const signUpWithGoogle=createAsyncThunk("users/signUpWithGoogle",
             const res = await signInWithPopup(auth, Provider) 
             if(res){
             console.log(res, "Signed up Succesfully with Google!")
+            toast.success("Signed up Succesfully with Google!")
+
            }
         } catch (error) {
             console.error(error,"error in signing up from Google")
+            toast.error("Coudn't SignUp. Please Try Again (or Later if issue persists continously.) ")
             throw thunkApi.rejectWithValue(error.res?.data)
         }
     }
@@ -51,14 +61,20 @@ export const logOut = createAsyncThunk("users/logOut",
 
 export const login= createAsyncThunk("users/login", 
     async(data, thunkApi)=>{
+        console.log(data, "login data before thunkllll")
         try {
             const res = await signInWithEmailAndPassword(auth, data.email, data.password)
             if(res){
                 console.log(res, "signin successful")
+                toast.success("Login Success!")
             }
         } catch (error) {
-            console.error(error,"error signing in")
+            if(error?.message == "Firebase: Error (auth/invalid-credential)."){
+                toast.error("Invalid Credentials!")
+        }
             throw thunkApi.rejectWithValue(error.res?.data)
+            
+            
         }
     }
 )

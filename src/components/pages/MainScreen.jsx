@@ -63,7 +63,7 @@ const MainScreen = () => {
                     className="w-[48px] rounded-3xl shadow-sm shadow-white"
                     alt=""
                   />
-                  <h1 className="text-white text-2xl font-semibold">
+                  <h1 className="text-white text-xl font-semibold">
                     Howdy, Harnoor
                   </h1>
                 </div>
@@ -85,7 +85,7 @@ const MainScreen = () => {
                   />
                 </div>
               </div>
-              <div className="SEARCHBAR mt-2 flex border-b-2 p-3 pb-6 ">
+              <div className="SEARCHBAR  flex border-b-2 p-3 pb-3 ">
                 <img
                   src={mag}
                   className="bg-[rgba(53,60,88,0.67)] p-1 w-[35px] cursor-pointer hover:bg-[rgba(191,196,213,0.5)] rounded-lg"
@@ -106,7 +106,7 @@ const MainScreen = () => {
 
               {/* chatsPreview */}
 
-              <div className="chats rounded-lg  h-[530px] mt-3 p-1 overflow-auto  scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
+              <div className="chats rounded-lg  h-[480px] mt-2 p-1 overflow-auto  scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
                 <div className=" rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
                   <div className="pp ">
                     <img
@@ -295,7 +295,7 @@ const MainScreen = () => {
 
             {/* Chats Section */}
             <div className="chats  border-l-2 border-l-[rgba(191,196,213,0.5)] w-[145%] ">
-              <div className="upper flex text-white justify-between items-center  border-b-2 pb-2">
+              <div className="upper flex text-white justify-between items-center  border-b-2 pb-1">
                 <div className="left ml-4 flex gap-4 rounded-lg cursor-pointer hover:bg-[rgba(191,196,213,0.5)] ">
                   <div className="img ">
                     <img
@@ -312,7 +312,7 @@ const MainScreen = () => {
                     </p>
                   </div>
                 </div>
-                <div className="rightIcons flex gap-4 mr-2 ">
+                <div className="rightIcons flex gap-3 mr-2 ">
                   <img
                     src={phone}
                     alt=""
@@ -331,8 +331,8 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="middle h-[568px]">
-                <div className="texts relative mt-2 h-[555px] flex flex-col space-y-2 mx-1 overflow-auto scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
+              <div className="middle h-[490px]">
+                <div className="texts relative mt-1 h-[480px] flex flex-col space-y-2 mx-1 overflow-auto scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
                   <div className="own flex items-center gap-1 self-end">
                     {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
                     <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
@@ -473,7 +473,7 @@ const MainScreen = () => {
                 {/* end of middle */}
               </div>
                             {/* end of chats */}
-              <div className="lower mt-[-6px]   w-[100%] ">
+              <div className="lower mt-[-8px]   w-[100%] ">
                 <div className="content flex  mx-4 justify-between relative">
                   <img
                     src={img}
@@ -521,38 +521,31 @@ const MainScreen = () => {
             <div className="profile w-[80%] border-l-2 border-l-[rgba(163,169,186,0.5)] ">
               <div>
                 <div className="top flex flex-col items-center text-center hover:bg-slate-900 bg-[rgba(191,196,213,0.5)] mx-2 rounded-lg text-white justify-center pb-2">
-                    <img src={dp} className=" rounded-[200px] mt-2 w-[80px] shadow-lg shadow-white " alt="" />
-                    <h1 className="text-xl mt-2 text-white">User 1</h1>
-                    <p className="mt-1 text-lg mx-4" >
+                    <img src={dp} className=" rounded-[200px] mt-1 w-[80px] shadow-lg shadow-white " alt="" />
+                    <h1 className="text-xl mt-1 text-white">User 1</h1>
+                    <p className=" text-lg mx-4" >
                       Hey there, Harnoor's makin chat app for Only Farms!! (Read
                       that Again!)
                     </p>
                 </div>
               </div>
                                 {/* ******accordians****** */}
-              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+              <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
                     <h1 className="text-lg" >Chat Settings</h1>
                     <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
                 </div>
               </div>
 
-              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+              <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
                     <h1  className="text-lg">Privacy & Help</h1>
                     <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
                 </div>
               </div>
 
-              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
-                <div className="accordian text-xl flex items-center justify-between ">
-                    <h1 className="text-lg"  >Privacy & Help</h1>
-                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
-                </div>
-              </div>
-
                             {/* shared photos */}
-              <div className="bottom mt-2 cursor-pointer bg-[rgba(191,196,213,0.5)] p-2 rounded-lg text-white mx-2">
+              <div className="bottom mt-1 cursor-pointer bg-[rgba(191,196,213,0.5)] p-2 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
                     <h1 className="text-lg" >Shared Photos</h1>
                     <img src={au} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
@@ -587,14 +580,14 @@ const MainScreen = () => {
 
               </div>
 
-              <div className="bottom mt-2 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
+              <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
                     <h1  className="text-lg">Shared Files</h1>
                     <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
                 </div>
               </div>
 
-              <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-2 text-white p-2 rounded-lg mx-2" >Block User</button>
+              <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-1 text-white p-2 rounded-lg mx-2" >Block User</button>
               <button className="w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2" >Logout</button>
                         
             </div>
