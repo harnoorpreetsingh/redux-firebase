@@ -21,19 +21,35 @@ const SignUpAndLogin = () => {
   };
 
   return (
-    <div className="maindiv bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen flex items-center justify-center">
-      <div className="bg-gradient-to-tl from-gray-700 to-gray-900 shadow-2xl text-white w-full max-w-6xl flex rounded-xl overflow-hidden">
-        
-        {/* Sign-up Form */}
-        <div className="register w-full sm:w-1/2 flex justify-center p-8 max-h-[80vh] overflow-y-auto">
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-[500px] p-8 bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-lg border-2 border-gray-600">
+
+
+     <div
+      className="h-screen"
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Card with Glassmorphism effect */}
+      <div className="flex justify-center items-center h-screen  ">
+        <div className="p-5 backdrop-blur-4xl backdrop-saturate-[220%] h-[85vh] w-[90%] bg-[rgba(53,60,88,0.67)] border border-white/10 rounded-xl shadow-inner drop-shadow-2xl shadow-white">
+
+        <div className="main ">
+
+        <h1 className="text-3xl text-white text-center">Welcome to Real-Time Chat!</h1>
+        <div className="forms flex mt-2">
+
+      {/* Sign-up Form */}
+      <div className="register w-full sm:w-1/2 flex justify-center p-8 max-h-[80vh] overflow-y-auto  border-gray-400">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-[500px] p-8 bg-transparent rounded-xl hover:shadow-inner hover:shadow-yellow-200">
             
-            <h1 className="text-2xl text-center mb-6 font-semibold">REGISTER</h1>
+            <h1 className="text-2xl text-white text-center mb-6 font-semibold">REGISTER</h1>
 
             {/* Name Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
                 type="text"
                 placeholder="Name"
                 {...register("name", { 
@@ -49,7 +65,7 @@ const SignUpAndLogin = () => {
             {/* Email Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
                 type="email"
                 placeholder="Email"
                 {...register("email", { 
@@ -66,7 +82,7 @@ const SignUpAndLogin = () => {
             {/* Password Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
                 type="password"
                 placeholder="Password"
                 {...register("password", { 
@@ -99,13 +115,13 @@ const SignUpAndLogin = () => {
 
         {/* Login Form */}
         <div className="login w-full sm:w-1/2 flex justify-center p-8 max-h-[80vh] overflow-y-auto">
-          <form onSubmit={handleLogin} className="w-full sm:w-[500px] p-8 bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-lg border-2 border-gray-600">
-            <h1 className="text-2xl text-center mb-6 font-semibold">LOGIN</h1>
+          <form onSubmit={handleLogin} className="w-full sm:w-[500px] p-8 bg-transparent rounded-xl  hover:shadow-inner hover:shadow-yellow-200">
+            <h1 className="text-2xl text-center mb-6 font-semibold text-white">LOGIN</h1>
             
             {/* Name Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 bg-gray-900 focus:ring-blue-600 transition duration-300"
                 type="text"
                 placeholder="Name"
                 {...register("name", { 
@@ -121,7 +137,7 @@ const SignUpAndLogin = () => {
             {/* Email Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
                 type="email"
                 placeholder="Email"
                 {...register("email", { 
@@ -138,7 +154,7 @@ const SignUpAndLogin = () => {
             {/* Password Input */}
             <div className="mb-6">
               <input
-                className="w-full p-4 bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="w-full p-4 focus:bg-transparent bg-gray-900 text-white border-2 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
                 type="password"
                 placeholder="Password"
                 {...register("password", { 
@@ -168,6 +184,12 @@ const SignUpAndLogin = () => {
             </button>
           </form>
         </div>
+
+          </div>
+
+        </div>
+          
+      </div>
       </div>
     </div>
   );
