@@ -18,6 +18,7 @@ import au from "../../assets/icons/arrowUp.png";
 import dwnld from "../../assets/icons/download.png";
 import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
+import AddUser from "./AddUser";
 
 const MainScreen = () => {
   const [addMode, setAddMode] = useState(false);
@@ -287,7 +288,9 @@ const MainScreen = () => {
                     <h1>User 1</h1>
                     <p>Hey Fella!</p>
                   </div>
+
                 </div>
+                  { addMode && <AddUser/> }
               </div>
             </div>
 
@@ -334,8 +337,8 @@ const MainScreen = () => {
               <div className="middle h-[490px]">
                 <div className="texts relative mt-1 h-[480px] flex flex-col space-y-2 mx-1 overflow-auto scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
                   <div className="own flex items-center gap-1 self-end">
-                    {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
-                    <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
+                    
+                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Numquam facere dicta, nesciunt praesentium eveniet sed
@@ -360,9 +363,9 @@ const MainScreen = () => {
                     </div>
                   </div>
 
-                  <div className="own flex items-center gap-1 self-end">
-                    {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
-                    <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
+                  {/* <div className="own flex items-center gap-1 self-end">
+                  
+                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Numquam facere dicta, nesciunt praesentium eveniet sed
@@ -371,9 +374,9 @@ const MainScreen = () => {
                       </p>
                     </div>
                     <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div>
+                  </div> */}
 
-                  <div className="text flex items-center gap-1 self-start">
+                  {/* <div className="text flex items-center gap-1 self-start">
                     <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
 
                     <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
@@ -385,11 +388,11 @@ const MainScreen = () => {
                         facilis.
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="own flex items-center gap-1 self-end">
-                    {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
-                    <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
+                  {/* <div className="own flex items-center gap-1 self-end">
+                   
+                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Numquam facere dicta, nesciunt praesentium eveniet sed
@@ -398,9 +401,9 @@ const MainScreen = () => {
                       </p>
                     </div>
                     <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div>
+                  </div> */}
 
-                  <div className="text flex items-center gap-1 self-start">
+                  {/* <div className="text flex items-center gap-1 self-start">
                     <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
 
                     <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
@@ -412,11 +415,11 @@ const MainScreen = () => {
                         facilis.
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="own flex items-center gap-1 self-end">
-                    {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
-                    <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
+                  {/* <div className="own flex items-center gap-1 self-end">
+                  
+                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Numquam facere dicta, nesciunt praesentium eveniet sed
@@ -425,9 +428,9 @@ const MainScreen = () => {
                       </p>
                     </div>
                     <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div>
+                  </div> */}
 
-                  <div className="text flex items-center gap-1 self-start">
+                  {/* <div className="text flex items-center gap-1 self-start">
                     <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
 
                     <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
@@ -439,11 +442,11 @@ const MainScreen = () => {
                         facilis.
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="own flex items-center gap-1 self-end">
-                    {/* <img src={dp} className="w-[20px]  rounded-lg " alt="" /> */}
-                    <div className="text w-[450px] rounded-lg p-2 bg-slate-200 z-10 self-end">
+                  {/* <div className="own flex items-center gap-1 self-end">
+                 
+                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Numquam facere dicta, nesciunt praesentium eveniet sed
@@ -452,9 +455,9 @@ const MainScreen = () => {
                       </p>
                     </div>
                     <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div>
+                  </div> */}
 
-                  <div className="text flex items-center gap-1 self-start">
+                  {/* <div className="text flex items-center gap-1 self-start">
                     <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
 
                     <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
@@ -466,7 +469,7 @@ const MainScreen = () => {
                         facilis.
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                 <div ref={endRef}></div>
                 </div>
 

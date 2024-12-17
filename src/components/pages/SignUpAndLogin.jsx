@@ -17,7 +17,11 @@ const SignUpAndLogin = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(createUser({ email: data.email, password: data.password }));
+   
+
+    console.log(data, "daddada")
+    // dispatch(createUser({ name:data.name, email: data.email, password: data.password }));
+    dispatch(createUser(data));
   };
 
   const sUGoogle = (auth) => {
