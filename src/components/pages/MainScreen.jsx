@@ -19,13 +19,15 @@ import dwnld from "../../assets/icons/download.png";
 import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import AddUser from "./AddUser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/features/userSlice";
+import { auth } from "../../firebase/config";
 
 const MainScreen = () => {
 
   const fetchedUser = useSelector((state)=>(state?.user?.userData))
   console.log(fetchedUser, "usererererer")
-
+  const dispatch = useDispatch()
 
   const [addMode, setAddMode] = useState(false);
   const [OpenEmoji, setOpenEmoji] = useState(false);
@@ -47,13 +49,17 @@ const MainScreen = () => {
     
 }, [Text]);
 
+const handleLogout=()=>{
+  dispatch(logOut(auth))
+}
+
   return (
     <div
       className="h-screen"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center", 
       }}
     >
       {/* Card with Glassmorphism effect */}
@@ -141,7 +147,7 @@ const MainScreen = () => {
 
             {/* ************************************************************************************************ */}
 
-            {/* 2nd column :::::::::::: Chats Section */}
+            {/* 2nd column/page :::::::::::: Chats Section ::::::::::::::::*/}
             <div className="chats  border-l-2 border-l-[rgba(191,196,213,0.5)] w-[145%] ">
               <div className="upper flex text-white justify-between items-center  border-b-2 pb-1">
                 <div className="left ml-4 flex gap-4 rounded-lg cursor-pointer hover:bg-[rgba(191,196,213,0.5)] ">
@@ -208,113 +214,7 @@ const MainScreen = () => {
                     </div>
                   </div>
 
-                  {/* <div className="own flex items-center gap-1 self-end">
                   
-                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam facere dicta, nesciunt praesentium eveniet sed
-                        expedita, quia voluptas fugit inventore itaque ducimus
-                        ipsam voluptates. Mollitia debitis eos illo!
-                      </p>
-                    </div>
-                    <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div> */}
-
-                  {/* <div className="text flex items-center gap-1 self-start">
-                    <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
-
-                    <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Placeat, dolor asperiores? Provident iusto nihil
-                        expedita reiciendis impedit commodi maiores accusamus
-                        alias molestiae, exercitationem fugit eaque labore, ex
-                        facilis.
-                      </p>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="own flex items-center gap-1 self-end">
-                   
-                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam facere dicta, nesciunt praesentium eveniet sed
-                        expedita, quia voluptas fugit inventore itaque ducimus
-                        ipsam voluptates. Mollitia debitis eos illo!
-                      </p>
-                    </div>
-                    <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div> */}
-
-                  {/* <div className="text flex items-center gap-1 self-start">
-                    <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
-
-                    <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Placeat, dolor asperiores? Provident iusto nihil
-                        expedita reiciendis impedit commodi maiores accusamus
-                        alias molestiae, exercitationem fugit eaque labore, ex
-                        facilis.
-                      </p>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="own flex items-center gap-1 self-end">
-                  
-                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam facere dicta, nesciunt praesentium eveniet sed
-                        expedita, quia voluptas fugit inventore itaque ducimus
-                        ipsam voluptates. Mollitia debitis eos illo!
-                      </p>
-                    </div>
-                    <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div> */}
-
-                  {/* <div className="text flex items-center gap-1 self-start">
-                    <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
-
-                    <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Placeat, dolor asperiores? Provident iusto nihil
-                        expedita reiciendis impedit commodi maiores accusamus
-                        alias molestiae, exercitationem fugit eaque labore, ex
-                        facilis.
-                      </p>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="own flex items-center gap-1 self-end">
-                 
-                    <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam facere dicta, nesciunt praesentium eveniet sed
-                        expedita, quia voluptas fugit inventore itaque ducimus
-                        ipsam voluptates. Mollitia debitis eos illo!
-                      </p>
-                    </div>
-                    <img src={dp} className="w-[40px]  rounded-xl " alt="" />
-                  </div> */}
-
-                  {/* <div className="text flex items-center gap-1 self-start">
-                    <img src={dp2} className="w-[40px]  rounded-xl " alt="" />
-
-                    <div className="textCon  w-[450px] rounded-lg p-2 bg-yellow-500 z-0 self-start">
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Placeat, dolor asperiores? Provident iusto nihil
-                        expedita reiciendis impedit commodi maiores accusamus
-                        alias molestiae, exercitationem fugit eaque labore, ex
-                        facilis.
-                      </p>
-                    </div>
-                  </div> */}
                 <div ref={endRef}></div>
                 </div>
 
@@ -436,7 +336,7 @@ const MainScreen = () => {
               </div>
 
               <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-1 text-white p-2 rounded-lg mx-2" >Block User</button>
-              <button className="w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2" >Logout</button>
+              <button onClick={handleLogout} className="  w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2" >Logout</button>
                         
             </div>
           </div>
