@@ -1,6 +1,6 @@
 import MainScreen from "./components/pages/MainScreen"
 import { useEffect } from "react"
-// import SignUpAndLogin from "./components/pages/SignUpAndLogin"
+import SignUpAndLogin from "./components/pages/SignUpAndLogin"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "./firebase/config"
 import { useDispatch } from "react-redux"
@@ -38,7 +38,7 @@ function App() {
   return (
     <>
     
-      {/* <SignUpAndLogin /> */}
+      <SignUpAndLogin />
       <MainScreen />
     </>
   )

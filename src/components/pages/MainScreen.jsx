@@ -23,7 +23,8 @@ import { useSelector } from "react-redux";
 
 const MainScreen = () => {
 
-  const fetchedUser = useSelector((state)=>(state.user.userData))
+  const fetchedUser = useSelector((state)=>(state?.user?.userData))
+  console.log(fetchedUser, "usererererer")
 
 
   const [addMode, setAddMode] = useState(false);
@@ -70,7 +71,7 @@ const MainScreen = () => {
                     alt=""
                   />
                   <h1 className="text-white text-xl font-semibold">
-                    Howdy,{fetchedUser.name}
+                    Howdy, {fetchedUser?.name}
                   </h1>
                 </div>
                 <div className="right gap-3 flex">
@@ -113,6 +114,8 @@ const MainScreen = () => {
               {/* chatsPreview */}
 
               <div className="chats rounded-lg  h-[480px] mt-2 p-1 overflow-auto  scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
+                
+                
                 <div className=" rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
                   <div className="pp ">
                     <img
@@ -127,174 +130,11 @@ const MainScreen = () => {
                   </div>
                 </div>
 
-                <div className="mt-2  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
 
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
 
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
+               
 
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
-
-                <div className="mt-3  rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-
-                </div>
+               
                   { addMode && <AddUser/> }
               </div>
             </div>
