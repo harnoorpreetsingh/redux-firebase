@@ -20,7 +20,7 @@ function App() {
         try {
           // Fetch user data from Redux or API
           await dispatch(fetchUser(currentUser.uid)).unwrap();
-          console.log("Current user data fetched:", currentUser);
+          // console.log("Current user data fetched:", currentUser);
         } catch (error) {
           console.error("Error fetching user data:", error);
         }

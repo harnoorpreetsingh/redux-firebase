@@ -21,23 +21,55 @@ import EmojiPicker from "emoji-picker-react";
 import AddUser from "./AddUser";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/features/userSlice";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
 const MainScreen = () => {
-
-  const fetchedUser = useSelector((state)=>(state?.user?.userData))
-  console.log(fetchedUser, "usererererer")
-  const dispatch = useDispatch()
+  const fetchedUser = useSelector((state) => state?.user?.userData);
+  // console.log(fetchedUser, "usererererer");
+  const dispatch = useDispatch();
 
   const [addMode, setAddMode] = useState(false);
   const [OpenEmoji, setOpenEmoji] = useState(false);
   const [Text, setText] = useState("");
+  //*************************************************************************************/
+
+  // code for other users display element page 1, bottom
+
+  const [aChat, setaChat] = useState([]);
+
+  useEffect(() => {
+    const uns = onSnapshot(doc(db, "userchats", fetchedUser.id), async (res) => {
+      // console.log(res?.data(), "chat doc datata");
+
+      const items = res.data().chats; //array 
+
+      const promises = items.map(async(item)=>{ //mapping on array
+        const userDocRef=doc(db, "users", item.receiverId); //receiverID
+        const userDocSnap =await getDoc(userDocRef)
+
+        const user = userDocSnap.data()
+
+        return{...item, user} //rec id will be there in obj already + user details of receiver based on rec id
+      })
+      const chatData = await Promise.all(promises)
+      setaChat(chatData.sort((a,b)=>b.updatedAt-a.updatedAt) ) //sorts in descending 
+    });
+
+    return () => {
+      uns();
+    };
+  }, [fetchedUser.id]);
+
+  // console.log(aChat.chats, "chaaaaaaaaaaat");
+
+  //*************************************************************************************/
 
   const addUser = () => {
     setAddMode(!addMode); // Toggle addMode between true and false
   };
   const handleEmoji = (e) => {
-    console.log(e, "emojizzzz");
+    // console.log(e, "emojizzzz");
     setText((prev) => prev + e.emoji);
     // setOpenEmoji(false);
   };
@@ -45,21 +77,21 @@ const MainScreen = () => {
   const endRef = useRef();
 
   useEffect(() => {
- endRef.current?.scrollIntoView({ behavior: "smooth" });
-    
-}, [Text]);
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [Text]);
 
-const handleLogout=()=>{
-  dispatch(logOut(auth))
-}
+  const handleLogout = () => {
+    dispatch(logOut(auth));
+  };
 
+  // console.log(aChat , "usestate datatatat")
   return (
     <div
       className="h-screen"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
-        backgroundPosition: "center", 
+        backgroundPosition: "center",
       }}
     >
       {/* Card with Glassmorphism effect */}
@@ -77,7 +109,7 @@ const handleLogout=()=>{
                     alt=""
                   />
                   <h1 className="text-white text-xl font-semibold">
-                    Howdy, {fetchedUser?.name}
+                    {fetchedUser?.name}
                   </h1>
                 </div>
                 <div className="right gap-3 flex">
@@ -120,28 +152,28 @@ const handleLogout=()=>{
               {/* chatsPreview */}
 
               <div className="chats rounded-lg  h-[480px] mt-2 p-1 overflow-auto  scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
-                
-                
-                <div className=" rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center">
-                  <div className="pp ">
-                    <img
-                      src={dp}
-                      className="w-[35px] rounded-3xl shadow-sm shadow-white"
-                      alt=""
-                    />
-                  </div>
-                  <div className="user text-white">
-                    <h1>User 1</h1>
-                    <p>Hey Fella!</p>
-                  </div>
-                </div>
+                {aChat.chats?.map((chat) => {
+                  return (
+                    <div
+                      key={chat.chatId}
+                      className=" rounded-lg  hover:bg-[rgba(191,196,213,0.5)] p-1 cursor-pointer flex gap-4 items-center"
+                    >
+                      <div className="pp ">
+                        <img
+                          src={dp}
+                          className="w-[35px] rounded-3xl shadow-sm shadow-white"
+                          alt=""
+                        />
+                      </div>
+                      <div className="user text-white">
+                        <h1>User 1</h1>
+                        <p>{chat.lastMessage}</p>
+                      </div>
+                    </div>
+                  );
+                })}
 
-
-
-               
-
-               
-                  { addMode && <AddUser/> }
+                {addMode && <AddUser />}
               </div>
             </div>
 
@@ -160,10 +192,7 @@ const handleLogout=()=>{
                   </div>
                   <div className="info  ">
                     <h1>User 1</h1>
-                    <p>
-                      Hey there, Harnoor's makin chat app for Only Farms!! (Read
-                      that Again!){" "}
-                    </p>
+                    <p>Hey there, I'm using chat app! Woohoo! </p>
                   </div>
                 </div>
                 <div className="rightIcons flex gap-3 mr-2 ">
@@ -188,7 +217,6 @@ const handleLogout=()=>{
               <div className="middle h-[490px]">
                 <div className="texts relative mt-1 h-[480px] flex flex-col space-y-2 mx-1 overflow-auto scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
                   <div className="own flex items-center gap-1 self-end">
-                    
                     <div className="text w-[450px] rounded-lg p-2 bg-blue-500 text-white z-10 self-end">
                       <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -214,13 +242,12 @@ const handleLogout=()=>{
                     </div>
                   </div>
 
-                  
-                <div ref={endRef}></div>
+                  <div ref={endRef}></div>
                 </div>
 
                 {/* end of middle */}
               </div>
-                            {/* end of chats */}
+              {/* end of chats */}
               <div className="lower mt-[-8px]   w-[100%] ">
                 <div className="content flex  mx-4 justify-between relative">
                   <img
@@ -269,75 +296,108 @@ const handleLogout=()=>{
             <div className="profile w-[80%] border-l-2 border-l-[rgba(163,169,186,0.5)] ">
               <div>
                 <div className="top flex flex-col items-center text-center hover:bg-slate-900 bg-[rgba(191,196,213,0.5)] mx-2 rounded-lg text-white justify-center pb-2">
-                    <img src={dp} className=" rounded-[200px] mt-1 w-[80px] shadow-lg shadow-white " alt="" />
-                    <h1 className="text-xl mt-1 text-white">User 1</h1>
-                    <p className=" text-lg mx-4" >
-                      Hey there, Harnoor's makin chat app for Only Farms!! (Read
-                      that Again!)
-                    </p>
+                  <img
+                    src={dp}
+                    className=" rounded-[200px] mt-1 w-[80px] shadow-lg shadow-white "
+                    alt=""
+                  />
+                  <h1 className="text-xl mt-1 text-white">User 1</h1>
+                  <p className=" text-lg mx-4">
+                    Hey there, I'm using chat app! Woohoo!
+                  </p>
                 </div>
               </div>
-                                {/* ******accordians****** */}
+              {/* ******accordians****** */}
               <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
-                    <h1 className="text-lg" >Chat Settings</h1>
-                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                  <h1 className="text-lg">Chat Settings</h1>
+                  <img
+                    src={ad}
+                    className="w-[27px] bg-slate-900 p-1 rounded-xl"
+                    alt=""
+                  />
                 </div>
               </div>
 
               <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
-                    <h1  className="text-lg">Privacy & Help</h1>
-                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                  <h1 className="text-lg">Privacy & Help</h1>
+                  <img
+                    src={ad}
+                    className="w-[27px] bg-slate-900 p-1 rounded-xl"
+                    alt=""
+                  />
                 </div>
               </div>
 
-                            {/* shared photos */}
+              {/* shared photos */}
               <div className="bottom mt-1 cursor-pointer bg-[rgba(191,196,213,0.5)] p-2 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
-                    <h1 className="text-lg" >Shared Photos</h1>
-                    <img src={au} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                  <h1 className="text-lg">Shared Photos</h1>
+                  <img
+                    src={au}
+                    className="w-[27px] bg-slate-900 p-1 rounded-xl"
+                    alt=""
+                  />
                 </div>
 
                 <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
                   <div className="flex gap-4">
-                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
-                  <h1>photo_2024_2</h1>
+                    <img src={dp2} className="w-[40px] rounded-lg " alt="" />
+                    <h1>photo_2024_2</h1>
                   </div>
-                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                  <img
+                    src={dwnld}
+                    className="w-[28px] rounded-xl hover:bg-slate-900 p-1 "
+                    alt=""
+                  />
                 </div>
 
                 <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
                   <div className="flex gap-4">
-                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
-                  <h1>photo_2024_2</h1>
+                    <img src={dp2} className="w-[40px] rounded-lg " alt="" />
+                    <h1>photo_2024_2</h1>
                   </div>
-                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                  <img
+                    src={dwnld}
+                    className="w-[28px] rounded-xl hover:bg-slate-900 p-1 "
+                    alt=""
+                  />
                 </div>
-
-
 
                 <div className="imgShared rounded-xl hover:bg-slate-900 p-1 flex items-center mt-3 justify-between">
                   <div className="flex gap-4">
-                  <img src={dp2} className="w-[40px] rounded-lg " alt=""  />
-                  <h1>photo_2024_2</h1>
+                    <img src={dp2} className="w-[40px] rounded-lg " alt="" />
+                    <h1>photo_2024_2</h1>
                   </div>
-                    <img src={dwnld} className="w-[28px] rounded-xl hover:bg-slate-900 p-1 " alt=""  />
+                  <img
+                    src={dwnld}
+                    className="w-[28px] rounded-xl hover:bg-slate-900 p-1 "
+                    alt=""
+                  />
                 </div>
-
-
               </div>
 
               <div className="bottom mt-1 cursor-pointer hover:bg-[rgba(191,196,213,0.5)] p-1 rounded-lg text-white mx-2">
                 <div className="accordian text-xl flex items-center justify-between ">
-                    <h1  className="text-lg">Shared Files</h1>
-                    <img src={ad} className="w-[27px] bg-slate-900 p-1 rounded-xl" alt="" />
+                  <h1 className="text-lg">Shared Files</h1>
+                  <img
+                    src={ad}
+                    className="w-[27px] bg-slate-900 p-1 rounded-xl"
+                    alt=""
+                  />
                 </div>
               </div>
 
-              <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-1 text-white p-2 rounded-lg mx-2" >Block User</button>
-              <button onClick={handleLogout} className="  w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2" >Logout</button>
-                        
+              <button className="w-[100%] bg-red-600 hover:bg-red-900 mt-1 text-white p-2 rounded-lg mx-2">
+                Block User
+              </button>
+              <button
+                onClick={handleLogout}
+                className="  w-[100%] bg-blue-600 mt-2 hover:bg-blue-900 text-white p-2 rounded-lg mx-2"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>

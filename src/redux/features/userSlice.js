@@ -13,12 +13,12 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 export const fetchUser = createAsyncThunk(
   "users/fetchUser",
   async (id, thunkApi) => {
-    console.log(id, "id befo try");
+    // console.log(id, "id befo try");
     try {
       const getData = doc(db, "users", id);
       const getSnap = await getDoc(getData);
       if (getSnap.exists()) {
-        console.log(getSnap.data(), "getSnap Data in Slice");
+        // console.log(getSnap.data(), "getSnap Data in Slice");
         return getSnap.data();
       }
     } catch (error) {
@@ -30,7 +30,7 @@ export const fetchUser = createAsyncThunk(
 export const createUser = createAsyncThunk(
   "users/createUserWithEmail",
   async ({ email, password, name }, thunkApi) => {
-    console.log(email, password);
+    // console.log(email, password);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", res.user.uid), {
@@ -44,7 +44,7 @@ export const createUser = createAsyncThunk(
         chats: [],
       });
 
-      console.log(res, "rererererere");
+      // console.log(res, "rererererere");
       if (res) {
         console.log(res, "User created successfully");
         toast.success("User created Successfully!!");
@@ -96,7 +96,7 @@ export const logOut = createAsyncThunk(
 );
 
 export const login = createAsyncThunk("users/login", async (data, thunkApi) => {
-  console.log(data, "login data before thunkllll");
+  // console.log(data, "login data before thunkllll");
   try {
     const res = await signInWithEmailAndPassword(
       auth,
