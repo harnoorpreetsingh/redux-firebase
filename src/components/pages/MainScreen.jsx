@@ -19,8 +19,13 @@ import dwnld from "../../assets/icons/download.png";
 import { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import AddUser from "./AddUser";
+import { useSelector } from "react-redux";
 
 const MainScreen = () => {
+
+  const fetchedUser = useSelector((state)=>(state.user.userData))
+
+
   const [addMode, setAddMode] = useState(false);
   const [OpenEmoji, setOpenEmoji] = useState(false);
   const [Text, setText] = useState("");
@@ -65,7 +70,7 @@ const MainScreen = () => {
                     alt=""
                   />
                   <h1 className="text-white text-xl font-semibold">
-                    Howdy, Harnoor
+                    Howdy,{fetchedUser.name}
                   </h1>
                 </div>
                 <div className="right gap-3 flex">
@@ -296,7 +301,7 @@ const MainScreen = () => {
 
             {/* ************************************************************************************************ */}
 
-            {/* Chats Section */}
+            {/* 2nd column :::::::::::: Chats Section */}
             <div className="chats  border-l-2 border-l-[rgba(191,196,213,0.5)] w-[145%] ">
               <div className="upper flex text-white justify-between items-center  border-b-2 pb-1">
                 <div className="left ml-4 flex gap-4 rounded-lg cursor-pointer hover:bg-[rgba(191,196,213,0.5)] ">

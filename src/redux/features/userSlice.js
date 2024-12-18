@@ -8,8 +8,24 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../../firebase/config";
 import { toast } from "sonner";
-import { doc, setDoc } from "firebase/firestore";
-import { BlockReason } from "firebase/vertexai";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+
+export const fetchUser = createAsyncThunk(
+  "users/fetchUser",
+  async (id, thunkApi) => {
+    console.log(id, "id befo try");
+    try {
+      const getData = doc(db, "users", id);
+      const getSnap = await getDoc(getData);
+      if (getSnap.exists()) {
+        console.log(getSnap.data(), "getSnap Data in Slice");
+        return getSnap.data();
+      }
+    } catch (error) {
+      throw thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 export const createUser = createAsyncThunk(
   "users/createUserWithEmail",
@@ -20,7 +36,7 @@ export const createUser = createAsyncThunk(
       await setDoc(doc(db, "users", res.user.uid), {
         name,
         email,
-        blocked:[],
+        blocked: [],
         id: res.user.uid,
       });
 
@@ -123,7 +139,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLoading: true,
-    userData: [],
+    userData: null,
     error: null,
   },
   reducers: {},
@@ -132,8 +148,7 @@ const userSlice = createSlice({
       .addCase(createUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createUser.fulfilled, (state, action) => {
-        state.userData.push(action.payload);
+      .addCase(createUser.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(createUser.rejected, (state, action) => {
@@ -143,8 +158,7 @@ const userSlice = createSlice({
       .addCase(signUpWithGoogle.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(signUpWithGoogle.fulfilled, (state, action) => {
-        state.userData.push(action.payload);
+      .addCase(signUpWithGoogle.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(signUpWithGoogle.rejected, (state, action) => {
@@ -160,7 +174,20 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
-      });
+      })
+      .addCase(fetchUser.pending,(state)=>{
+        state.isLoading=true
+      })
+      .addCase(fetchUser.fulfilled,(state,action)=>{
+        state.userData=action.payload
+        
+        state.isLoading=false
+      })
+      .addCase(fetchUser.rejected,(state,action)=>{
+        state.error=action.payload
+        state.isLoading=false
+        state.userData=null
+      })
   },
 });
 

@@ -8,12 +8,14 @@ import { useState } from "react";
 
 const SignUpAndLogin = () => {
 
+  
+
   const [Avatar, setAvatar] = useState({
     file:null,
     url:""
   })
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
