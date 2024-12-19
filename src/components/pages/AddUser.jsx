@@ -21,8 +21,8 @@ const AddUser = ({ setAddMode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [User, setUser] = useState([]);
 
-  const currentUser = useSelector((state)=>state.user.userData)
-// console.log(curentUser.id, "curentUser")
+  const currentUser = useSelector((state) => state.user.userData);
+  // console.log(curentUser.id, "curentUser")
   const closeModal = () => {
     setIsOpen(false); // To close the modal
     setAddMode(false); // does the button back to '+'
@@ -61,88 +61,95 @@ const AddUser = ({ setAddMode }) => {
   // **************************:::::::: Search User with query ENDS  ::::::::********************
   // **************************::::::::::::::::::::::::::::::::::::::::::::::********************
 
-
-
-
-
-
-
   // *************************:::::::: ----- ADD User to List ----  STARTS :::::::********************
 
   const handleAdd = async (e, user) => {
     e.preventDefault();
-  
+
     const chatRef = collection(db, "chats");
     const userChatRef = collection(db, "userchats");
-  
+
     try {
       // 1. Create a new chat document in Firestore
-      const newChatRef = doc(chatRef);  // Reference for new chat document
+      const newChatRef = doc(chatRef); // Reference for new chat document
       await setDoc(newChatRef, {
         updatedAt: serverTimestamp(),
         messages: [],
       });
-  
+
       // 2. Fetch current user and target user chat lists
-      const currentUserChatsSnap = await getDoc(doc(userChatRef, currentUser.id));
+      const currentUserChatsSnap = await getDoc(
+        doc(userChatRef, currentUser.id)
+      );
       const userChatsSnap = await getDoc(doc(userChatRef, user.id));
-  
-      const currentUserChats = currentUserChatsSnap.exists() ? currentUserChatsSnap.data().chats : [];
-      const userChats = userChatsSnap.exists() ? userChatsSnap.data().chats : [];
-  
+
+      const currentUserChats = currentUserChatsSnap.exists()
+        ? currentUserChatsSnap.data().chats
+        : [];
+      const userChats = userChatsSnap.exists()
+        ? userChatsSnap.data().chats
+        : [];
+
       // 3. Check if chat already exists based on chat ID or user email
-      const chatExistsForCurrentUser = currentUserChats.some(chat => chat.receiverId === user.id && chat.chatId === newChatRef.id);
-      const chatExistsForUser = userChats.some(chat => chat.receiverId === currentUser.id && chat.chatId === newChatRef.id);
-  
+      const chatExistsForCurrentUser = currentUserChats.some(
+        (chat) => chat.receiverId === user.id && chat.chatId === newChatRef.id
+      );
+      const chatExistsForUser = userChats.some(
+        (chat) =>
+          chat.receiverId === currentUser.id && chat.chatId === newChatRef.id
+      );
+
       // 4. Check if user email or ID already exists in the user's chat list
-      const userAlreadyInCurrentUserChat = currentUserChats.some(chat => chat.receiverId === user.id);
-      const userAlreadyInTargetUserChat = userChats.some(chat => chat.receiverId === currentUser.id);
-  
-      if (chatExistsForCurrentUser || chatExistsForUser || userAlreadyInCurrentUserChat || userAlreadyInTargetUserChat) {
+      const userAlreadyInCurrentUserChat = currentUserChats.some(
+        (chat) => chat.receiverId === user.id
+      );
+      const userAlreadyInTargetUserChat = userChats.some(
+        (chat) => chat.receiverId === currentUser.id
+      );
+
+      if (
+        chatExistsForCurrentUser ||
+        chatExistsForUser ||
+        userAlreadyInCurrentUserChat ||
+        userAlreadyInTargetUserChat
+      ) {
         toast.error("User is already in this chat.");
         return; // Exit if chat already exists or user is already in the chat
+      } else {
+        // 5. Add the chat to both users' chat lists if no duplicate found
+        const chatDataForCurrentUser = {
+          chatId: newChatRef.id,
+          lastMessage: "",
+          receiverId: user.id,
+          updatedAt: Date.now(),
+        };
+
+        const chatDataForUser = {
+          chatId: newChatRef.id,
+          lastMessage: "",
+          receiverId: currentUser.id,
+          updatedAt: Date.now(),
+        };
+
+        // 6. Update the current user's chat list (ensure atomic update)
+        await updateDoc(doc(userChatRef, currentUser.id), {
+          chats: arrayUnion(chatDataForCurrentUser),
+        });
+
+        // 7. Update the target user's chat list (ensure atomic update)
+        await updateDoc(doc(userChatRef, user.id), {
+          chats: arrayUnion(chatDataForUser),
+        });
+
+        toast.success("User added to chat!");
       }
-  
-      // 5. Add the chat to both users' chat lists if no duplicate found
-      const chatDataForCurrentUser = {
-        chatId: newChatRef.id,
-        lastMessage: "",
-        receiverId: user.id,
-        updatedAt: Date.now(),
-      };
-  
-      const chatDataForUser = {
-        chatId: newChatRef.id,
-        lastMessage: "",
-        receiverId: currentUser.id,
-        updatedAt: Date.now(),
-      };
-  
-      // 6. Update the current user's chat list (ensure atomic update)
-      await updateDoc(doc(userChatRef, currentUser.id), {
-        chats: arrayUnion(chatDataForCurrentUser),
-      });
-  
-      // 7. Update the target user's chat list (ensure atomic update)
-      await updateDoc(doc(userChatRef, user.id), {
-        chats: arrayUnion(chatDataForUser),
-      });
-  
-      toast.success("User added to chat!");
     } catch (error) {
       console.log(error);
       toast.error("Error adding user to chat.");
     }
   };
-  
-  
-  
 
   // *************************:::::::: ------ ADD User ----  ENDSS :::::::********************
-
-
-
-
 
   return (
     <>
@@ -188,7 +195,7 @@ const AddUser = ({ setAddMode }) => {
                   <span className="text-white">{user.name}</span>
                   <span className="text-white">{user.email}</span>
                   <button
-                    onClick={(e)=>handleAdd( e, user)}
+                    onClick={(e) => handleAdd(e, user)}
                     className="bg-blue-700 hover:bg-green-700 text-white p-2 rounded-lg"
                   >
                     Add User
