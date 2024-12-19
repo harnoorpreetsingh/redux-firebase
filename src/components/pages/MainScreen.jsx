@@ -30,7 +30,7 @@ const MainScreen = () => {
   const dispatch = useDispatch();
 
   const [addMode, setAddMode] = useState(false);
-  const [OpenEmoji, setOpenEmoji] = useState(false);
+  const [OpenEmoji, setOpenEmoji] = useState  (false);
   const [Text, setText] = useState("");
   //*************************************************************************************/
 
@@ -40,33 +40,44 @@ const MainScreen = () => {
 
   useEffect(() => {
     const uns = onSnapshot(doc(db, "userchats", fetchedUser.id), async (res) => {
-      // console.log(res?.data(), "chat doc datata");
-
-      const items = res.data().chats; //array 
-
-      const promises = items.map(async(item)=>{ //mapping on array
-        const userDocRef=doc(db, "users", item.receiverId); //receiverID
-        const userDocSnap =await getDoc(userDocRef)
-
-        const user = userDocSnap.data()
-
-        return{...item, user} //rec id will be there in obj already + user details of receiver based on rec id
-      })
-      const chatData = await Promise.all(promises)
-      setaChat(chatData.sort((a,b)=>b.updatedAt-a.updatedAt) ) //sorts in descending 
+      const items = res.data().chats; // Array of chat data
+  
+      // Map through the chats and fetch receiver data for each chat
+      const promises = items.map(async (item) => {
+        const userDocRef = doc(db, "users", item.receiverId); // Fetch receiver data
+        const userDocSnap = await getDoc(userDocRef);
+        const user = userDocSnap.data();
+        return { ...item, user }; // Merge chat data with receiver data
+      });
+  
+      // Wait for all promises to resolve
+      const chatData = await Promise.all(promises);
+  
+      // Deduplicate the chat data based on chatId
+      // Create a Set or Map to track chatId
+      const existingChatIds = new Set(aChat.map(chat => chat.chatId)); // Track existing chatIds
+      const uniqueChats = [
+        ...aChat, // Start with the current chats
+        ...chatData.filter(chat => !existingChatIds.has(chat.chatId)) // Only add if not already in the state
+      ];
+  
+      // Update the state with unique chats
+      setaChat(uniqueChats);
     });
-
+  
     return () => {
-      uns();
+      uns(); // Clean up the listener on component unmount
     };
-  }, [fetchedUser.id]);
+  }, [fetchedUser.id]); // Dependency array includes aChat to ensure the state is checked on every update
+  
 
-  // console.log(aChat.chats, "chaaaaaaaaaaat");
+  console.log(aChat, "chaaaaaaaaaaat");
 
   //*************************************************************************************/
 
   const addUser = () => {
     setAddMode(!addMode); // Toggle addMode between true and false
+
   };
   const handleEmoji = (e) => {
     // console.log(e, "emojizzzz");
@@ -152,7 +163,8 @@ const MainScreen = () => {
               {/* chatsPreview */}
 
               <div className="chats rounded-lg  h-[480px] mt-2 p-1 overflow-auto  scrollbar-thin  scrollbar-thumb-[rgba(191,196,213,0.5)] scrollbar-track-[rgba(53,60,88,0.5)] scrollbar-rounded">
-                {aChat.chats?.map((chat) => {
+                {aChat?.map((chat) => { 
+                  console.log(chat, "chaaaaaaaaaaaaaattttt")
                   return (
                     <div
                       key={chat.chatId}
@@ -166,14 +178,14 @@ const MainScreen = () => {
                         />
                       </div>
                       <div className="user text-white">
-                        <h1>User 1</h1>
+                        <h1>{chat.user?.name}</h1>
                         <p>{chat.lastMessage}</p>
                       </div>
                     </div>
                   );
                 })}
 
-                {addMode && <AddUser />}
+                {addMode && <AddUser setAddMode={setAddMode} />}
               </div>
             </div>
 
